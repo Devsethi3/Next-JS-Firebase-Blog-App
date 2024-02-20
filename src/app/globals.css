@@ -1,0 +1,171 @@
+@import url(https://fonts.googleapis.com/css?family=Outfit:100,200,300,regular,500,600,700,800,900);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Outfit", sans-serif;
+}
+*::selection {
+  background: #0d9488;
+  color: #fff;
+}
+:root {
+  --bg: white;
+  --textColor: black;
+  --softBg: #f0f0f0;
+  --softTextColor: #3b3b3b;
+  --border-color: #e7e7e7;
+}
+.dark {
+  --bg: #0f172a;
+  --textColor: #ddd;
+  --softBg: #182442;
+  --border-color: #334367;
+  --softTextColor: #a6a6a6;
+}
+body {
+  background: var(--bg);
+  color: var(--textColor);
+  width: 100%;
+  height: 100%;
+  scroll-behavior: smooth;
+}
+body::-webkit-scrollbar {
+  display: none;
+}
+.container {
+  max-width: 1380px;
+  margin-inline: auto;
+  padding-inline: 0.75rem;
+}
+.nav-toggle,
+.nav-close {
+  display: none;
+}
+
+/* ======================= LOADER ======================= */
+.loader {
+  width: 44.8px;
+  height: 44.8px;
+  color: #10b867;
+  position: relative;
+  background: radial-gradient(11.2px, currentColor 94%, #0000);
+}
+.loader:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(10.08px at bottom right, #0000 94%, currentColor)
+      top left,
+    radial-gradient(10.08px at bottom left, #0000 94%, currentColor) top right,
+    radial-gradient(10.08px at top right, #0000 94%, currentColor) bottom left,
+    radial-gradient(10.08px at top left, #0000 94%, currentColor) bottom right;
+  background-size: 22.4px 22.4px;
+  background-repeat: no-repeat;
+  animation: loader 1.5s infinite cubic-bezier(0.3, 1, 0, 1);
+}
+
+@keyframes loader {
+  33% {
+    inset: -11.2px;
+    transform: rotate(0deg);
+  }
+
+  66% {
+    inset: -11.2px;
+    transform: rotate(90deg);
+  }
+
+  100% {
+    inset: 0;
+    transform: rotate(90deg);
+  }
+}
+
+/* =================================== MEDIA QUERRIES ===================================  */
+
+@media screen and (max-width: 1536px) {
+  .container {
+    max-width: 1350px;
+  }
+}
+@media screen and (max-width: 1280px) {
+  .container {
+    max-width: 1024px;
+  }
+  .nav-logo-text {
+    display: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .container {
+    max-width: 768px;
+  }
+  .nav-toggle,
+  .nav-close {
+    display: block;
+  }
+  .nav-right-section {
+    margin-left: 0;
+    gap: 2.5rem;
+  }
+  .nav-right-links,
+  .nav-links {
+    flex-direction: column;
+  }
+  .nav-links li {
+    font-size: 1.4rem;
+    border-bottom: 2px solid #ffffff15;
+  }
+  .nav-right-links {
+    margin-top: 4rem;
+    align-items: center;
+  }
+  .search-bar,
+  .theme-toggle {
+    display: block;
+  }
+  .profile-toggle {
+    top: 60%;
+  }
+  .profile-actions {
+    margin-top: -2rem;
+    flex-direction: column;
+  }
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background: var(--softBg);
+    padding-top: 5rem;
+    z-index: 199;
+    flex-direction: column;
+    box-shadow: 0 4rem 3rem rgba(0, 0, 0, 0.3);
+    border-radius: 0.5rem 0 0 0.5rem;
+    transition: all 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .show-menu {
+    pointer-events: auto;
+    opacity: 1;
+    right: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media screen and (max-width: 640px) {
+  .container {
+    max-width: 475px;
+  }
+}
