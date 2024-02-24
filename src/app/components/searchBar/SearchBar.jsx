@@ -60,7 +60,7 @@ const SearchData = ({ searchQuery }) => {
                   objectFit="cover"
                 />
               </div>
-              <h4 className="text-normal lg:text-xl text-gray-800 leading-tight font-medium">
+              <h4 className="text-normal lg:text-xl text-gray-800 dark:text-gray-300 leading-tight font-medium">
                 {showPinTitle(pin.title)}
               </h4>
             </div>
