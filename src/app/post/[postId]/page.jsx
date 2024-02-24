@@ -38,7 +38,7 @@ const SinglePostPage = ({ params }) => {
 
     getPinDetail();
   }, [params.postId]);
-
+z
   const createdAtDate = new Date(parseInt(postId)).toLocaleDateString();
 
   const handleGoBack = () => {
