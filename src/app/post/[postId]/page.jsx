@@ -62,6 +62,14 @@ const SinglePostPage = ({ params }) => {
     }
   };
 
+  const handleEdit = async (id) => {
+    try {
+      router.push(`/edit-post/${id}`);
+    } catch (error) {
+      console.error("Error deleting document:", error);
+    }
+  };
+
   return (
     <div className="mb-10 mt-4">
       <div onClick={handleGoBack} className="lg:block hidden">
@@ -140,6 +148,13 @@ const SinglePostPage = ({ params }) => {
           </div>
           {session?.user.email == postDetail.email ? (
             <div className="flex pt-5 items-center gap-8 mt-4 border-t-2 dark:border-gray-600">
+              <button
+                onClick={() => handleEdit(postId)}
+                className="flex py-2.5 px-6 bg-teal-600 text-white rounded-md items-center gap-2"
+              >
+                <FaEdit />
+                <span className="font-medium">Edit Post</span>
+              </button>
               <button
                 onClick={() => handleDelete(postId)}
                 className="flex py-2.5 px-6 bg-red-600 text-white rounded-md items-center gap-2"

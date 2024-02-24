@@ -41,10 +41,10 @@ const AllPosts = () => {
     if (currentPage !== 1) {
       let topValue = 1580;
 
-      const screenWidth = window.innerWidth;
-      if (screenWidth <= 680) {
-        topValue = 5600;
-      }
+      // const screenWidth = window.innerWidth;
+      // if (screenWidth <= 680) {
+      //   topValue = 5000;
+      // }
 
       window.scrollTo({
         top: topValue,
