@@ -14,7 +14,6 @@ import { signOut, useSession } from "next-auth/react";
 import SearchBar from "../searchBar/SearchBar";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { app } from "../../../../firebaseConfig";
-import SearchData from "../searchBar/searchData";
 
 const Header = () => {
   const router = useRouter();
