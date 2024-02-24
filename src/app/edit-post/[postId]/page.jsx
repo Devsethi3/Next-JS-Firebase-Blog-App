@@ -4,12 +4,12 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import UploadImage from "@/app/components/uploadImage/UploadImage";
 import UserPinBuilderSkeleton from "@/app/components/loadingSkeletons/UserPinBuilderSkeleton";
 import UserTag from "@/app/components/userTag/UserTag";
 import Modal from "@/app/components/modal/Modal";
 import { app } from "../../../../firebaseConfig";
 import Image from "next/image";
+import { TbCloudUpload } from "react-icons/tb";
 
 const EditPostPage = ({ params }) => {
   console.log(params);
@@ -34,7 +34,7 @@ const EditPostPage = ({ params }) => {
   const [desc, setDesc] = useState();
   const [link, setLink] = useState();
   const [successMsg, setSuccessMsg] = useState(false);
-  const [selectedFile, setSelectedFile] = useState();
+  const [selectedFile, setSelectedFile] = useState(false);
 
   useEffect(() => {
     setPostId(params.postId);
@@ -75,16 +75,63 @@ const EditPostPage = ({ params }) => {
     setDesc(postDetail.desc);
   }, []);
 
-  const updateFile = () => {};
+  const updatePost = async () => {
+    try {
+      if (file) {
+        // Upload file to Firebase Storage
+        const storageRef = ref(storage, "posts/" + file.name);
+        const snapshot = await uploadBytes(storageRef, file);
 
+        // Get download URL
+        const downloadURL = await getDownloadURL(snapshot.ref);
+
+        // Update Firestore document with download URL
+        const postData = {
+          title: title,
+          desc: desc,
+          link: link,
+          image: downloadURL, // Update image field with download URL
+          category: tags.join(", "),
+          // Add other fields as needed
+        };
+
+        await setDoc(doc(db, "blog-post", postId), postData, { merge: true });
+        setLoading(false);
+        router.push("/" + session.user?.email);
+        setTimeout(() => {
+          setSuccessMsg(true);
+        }, 2000); // Adjust as needed
+      } else {
+        // If no file is selected, update Firestore document without changing the image field
+        const postData = {
+          title: title,
+          desc: desc,
+          link: link,
+          category: tags.join(", "),
+          // Add other fields as needed
+        };
+
+        await setDoc(doc(db, "blog-post", postId), postData, { merge: true });
+        setLoading(false);
+        router.push("/" + session.user?.email);
+        setTimeout(() => {
+          setSuccessMsg(true);
+        }, 2000); // Adjust as needed
+      }
+    } catch (error) {
+      console.error("Error updating post: ", error);
+      // Handle error
+    }
+  };
   const handleSave = () => {
     if (!title || !desc || !file || !link || tags.length === 0) {
       toggleModal();
       return;
     }
+
     setCategory(tags.join(", "));
     setLoading(true);
-    updateFile();
+    updatePost();
     toggleSuccess();
   };
 
@@ -97,6 +144,7 @@ const EditPostPage = ({ params }) => {
     setTags((prevTags) => [...prevTags, category.trim()]);
     setCategory("");
   };
+
   const toggleModal = () => {
     setFieldsError(!fieldsError);
   };
@@ -112,38 +160,16 @@ const EditPostPage = ({ params }) => {
             for="dropzone-file"
             className="flex flex-col items-center justify-center w-full h-[60vh] lg:h-[95vh] border-2 bg-[#f7fffe] hover:bg-[#ebfffd] transition-all dark:border-[#2c415f] dark:bg-[#1e2a41] dark:hover:bg-[#26354f] border-dashed rounded-lg cursor-pointer"
           >
-            {selectedFile ? (
-              <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                <svg
-                  className="w-[80px] h-[80px] text-gray-500 dark:text-gray-400"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 20 16"
-                >
-                  <path
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
-                  />
-                </svg>
-                <p className="mb-2 text-xl text-gray-500 mt-4 dark:text-gray-400">
-                  <span className="font-semibold">Click to upload</span> or drag
-                  and drop
-                </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
-                  SVG, PNG, JPG or GIF (MAX. 800x400px)
-                </p>
-              </div>
-            ) : null}
             <Image
-              src={postDetail?.image}
+              src={
+                selectedFile
+                  ? window.URL.createObjectURL(selectedFile)
+                  : postDetail?.image
+              }
               width={500}
               height={800}
               alt="selected-image"
-              className="object-contain p-2 w-full h-[90%]  "
+              className="object-contain p-2 w-full h-[90%]"
             />
             <input
               onChange={(e) => {
@@ -261,14 +287,14 @@ const EditPostPage = ({ params }) => {
       {successMsg && (
         <Modal
           toggleModal={toggleModal}
-          text="Blog Published Successfully"
+          text="Blog Updated Successfully"
           theme="success"
         />
       )}
       {fieldsError && (
         <Modal
           toggleModal={toggleModal}
-          text="Please fill all the fields before publishing!"
+          text="An error might possible for because you didn't save categories tags"
           theme="error"
         />
       )}

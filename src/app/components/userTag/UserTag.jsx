@@ -15,9 +15,9 @@ const UserTag = () => {
           alt="user"
         />
         <div className="flex flex-col">
-          <p className="opacity-70 font-medium">{session.user.name}</p>
+          <p className="opacity-70 font-medium">{session?.user.name}</p>
           <span className="text-sm text-gray-600 mt-[-3px]">
-            {session.user.email}
+            {session?.user.email}
           </span>
         </div>
       </div>

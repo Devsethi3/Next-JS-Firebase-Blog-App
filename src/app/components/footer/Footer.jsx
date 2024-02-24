@@ -19,7 +19,7 @@ const Footer = () => {
             <li>
               <Link
                 className="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                href="/blogs"
+                href="/"
               >
                 Home
               </Link>
@@ -28,7 +28,7 @@ const Footer = () => {
             <li>
               <Link
                 className="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                href="/blogs"
+                href="/about"
               >
                 About
               </Link>
@@ -37,7 +37,7 @@ const Footer = () => {
             <li>
               <Link
                 className="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
-                href="/blogs"
+                href="/recent-posts"
               >
                 Recent Posts
               </Link>

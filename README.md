@@ -20,6 +20,14 @@ Welcome to the Blog App repository! This project is a Next.js-based web applicat
 
 ![Blog App - Delete Post](preview_delete_post.png)
 
+### 4. Edit Post
+
+![Blog App - Edit Post](preview_edit_post.png)
+
+### 4. Search Filter
+
+![Blog App - Search Post](preview_search_filter.png)
+
 ### 5. Authentication
 
 ![Blog App - Authentication](preview_authentication.png)

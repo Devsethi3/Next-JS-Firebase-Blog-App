@@ -1,3 +1,4 @@
+"use client";
 import { useState, useEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -31,7 +32,7 @@ const SearchData = ({ searchQuery }) => {
 
   const showPinTitle = (title) => {
     if (screenWidth <= 680) {
-      return truncateDescription(title, 35);
+      return truncateDescription(title, 45);
     } else {
       return title;
     }
@@ -44,23 +45,22 @@ const SearchData = ({ searchQuery }) => {
           No matching blog found.
         </div>
       ) : (
-        <div className="flex flex-col gap-5 cursor-pointer">
+        <div className="flex py-3 flex-col gap-5 cursor-pointer">
           {filteredPins.map((pin, index) => (
             <div
               onClick={() => router.push(`/post/${pin.id}`)}
               key={index}
-              className="flex border-b-2 py-2 -mt-2 dark:border-[#27385c] items-center gap-4"
+              className="flex border-b-[2px] border-gray-200 py-2 -mt-5 dark:border-[#27385c] items-center gap-6"
             >
-              <div className="relative w-[60px] h-[55px] rounded-full">
+              <div className="relative lg:w-[90px] w-[100px] box-shadow: rgba(13, 38, 76, 0.19) 0px 9px 20px; lg:h-[85px] h-[65px] rounded-full">
                 <Image
                   src={pin?.image}
                   fill
                   alt={pin?.title}
-                  className="rounded-full"
                   objectFit="cover"
                 />
               </div>
-              <h4 className="text-normal lg:text-xl leading-tight font-medium">
+              <h4 className="text-normal lg:text-xl text-gray-800 leading-tight font-medium">
                 {showPinTitle(pin.title)}
               </h4>
             </div>

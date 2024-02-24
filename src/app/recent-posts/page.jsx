@@ -26,6 +26,9 @@ const RecentPostPage = () => {
     return text;
   };
 
+  // Reverse the order of listOfPins to display newest posts at the top
+  const reversedListOfPins = [...listOfPins].reverse();
+
   return (
     <div className="mt-5">
       <h1 className="text-center text-3xl text-gray-700 dark:text-gray-200 border-b-[3px] border-teal-600 pb-2 my-8 font-semibold">
@@ -35,20 +38,28 @@ const RecentPostPage = () => {
         <table className="w-full">
           <thead>
             <tr className="border-2 border-gray-300 dark:border-[#253954]">
-              <th className="border-2 w-20 py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">S.No.</th>
+              <th className="border-2 w-20 py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">
+                S.No.
+              </th>
               <th className="border-2 w-[150px] py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">
                 Blog Image
               </th>
-              <th className="border-2 w-[400px] py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">Title</th>
-              <th className="border-2 w-[410px] py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">Desc</th>
-              <th className="border-2 py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">Post By</th>
+              <th className="border-2 w-[400px] py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">
+                Title
+              </th>
+              <th className="border-2 w-[410px] py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">
+                Desc
+              </th>
+              <th className="border-2 py-2 px-3 border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">
+                Post By
+              </th>
               <th className="border-2 py-2 px-3 w-[150px] border-gray-300 dark:border-[#253954] dark:bg-[#253954] bg-gray-200 ">
                 Created Date
               </th>
             </tr>
           </thead>
           <tbody>
-            {listOfPins.map((pin, index) => (
+            {reversedListOfPins.map((pin, index) => (
               <tr
                 key={index}
                 className="cursor-pointer my-3"
