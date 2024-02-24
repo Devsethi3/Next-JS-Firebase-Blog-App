@@ -37,21 +37,21 @@ const AllPosts = () => {
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentPins = listOfPins.slice(indexOfFirstItem, indexOfLastItem);
 
-  // useEffect(() => {
-  //   if (currentPage !== 1) {
-  //     let topValue = 1580;
+  useEffect(() => {
+    if (currentPage !== 1) {
+      let topValue = 1580;
 
-  //     const screenWidth = window.jinnerWidth;
-  //     if (screenWidth <= 680) {
-  //       topValue = 5600;
-  //     }
+      const screenWidth = window.innerWidth;
+      if (screenWidth <= 680) {
+        topValue = 5600;
+      }
 
-  //     window.scrollTo({
-  //       top: topValue,
-  //       behavior: "smooth",
-  //     });
-  //   }
-  // }, [currentPage]);
+      window.scrollTo({
+        top: topValue,
+        behavior: "smooth",
+      });
+    }
+  }, [currentPage]);
 
   const handlePrevPage = () => {
     setCurrentPage((prevPage) => prevPage - 1);
