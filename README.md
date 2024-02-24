@@ -60,7 +60,7 @@ Welcome to the Blog App repository! This project is a Next.js-based web applicat
 
 ## Demo
 
-Check out the live demo of the Blog App [here](https://next-js-blog-app-eta.vercel.app).
+Check out the live demo of the Blog App [here](https://next-js-blog-eyrj1cbzq-devsethi3s-projects.vercel.app).
 
 ## Getting Started
 
